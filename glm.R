@@ -238,3 +238,5 @@ n1 = sum(y)
 n0 = length(y) - n1
 u = sum(rprob[y == 1]) - n1 * (n1 + 1)/2
 u/(n1 * n0)
+
+save.image('glm_resultados.RData')

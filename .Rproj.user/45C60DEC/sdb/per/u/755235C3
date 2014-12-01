@@ -1,0 +1,17 @@
+{
+    "contents" : "devtools::install_github(\"hadley/l1tf\")\n\nlibrary('l1tf')\n\nhelp('l1tf')\n\nx <- runif(1000)\n\nplot(x)\nlines(l1tf(x), col = \"red\")\nlines(l1tf(x, prop = 0.01), col = \"blue\")\n\n# SP500 example from paper\n\npar(mfrow=c(3, 1))\n\nplot.l1tf <- function(x){\n  lapply(x, function(x){\n  plot(sp500$date, log(sp500$raw), type=\"l\", col=\"grey50\", ylab=\"log-price\")\n  lines(sp500$date, l1tf(log(sp500$raw), prop=x), col=\"blue\")\n  })\n}\n\nplot.l1tf(c(0, 0.1, 0.2))\nplot.l1tf(seq(0.3, 0.5, 0.1))\n\nglmnet::cv.glmnet\n",
+    "created" : 1417330315813.000,
+    "dirty" : true,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "3163942125",
+    "id" : "755235C3",
+    "lastKnownWriteTime" : 4616687970331239554,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled4"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
