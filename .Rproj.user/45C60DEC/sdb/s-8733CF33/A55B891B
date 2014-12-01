@@ -1,0 +1,17 @@
+{
+    "contents" : "library(WeightedROC)\nlibrary(glmnet)\nrbind(`glmnet::auc`=c(unequal.weights=glmnet::auc(y, y.hat, w),\n                      no.weights=glmnet::auc(y, y.hat),\n                      equal.weights=glmnet::auc(y, y.hat, rep(1, length(y)))),\n      `WeightedROC::WeightedAUC`=c(wauc,\n                                   WeightedAUC(WeightedROC(y.hat, y)),\n                                   WeightedAUC(WeightedROC(y.hat, y, rep(1, length(y))))))          \n\n## with no ties, glmnet::auc can give the correct answer. For the\n## case with equal weights you must provide a vector of equal\n## weights as an argument (if you leave the third argument of\n## glmnet::auc missing, then it gives the wrong answer).\ny <- c(-1, -1, 1, -1, 1)\ny.hat <- c(1, 2, 3, 4, 5)\nw <- c(1, 1, 1, 4, 5)\nrbind(`glmnet::auc`=c(unequal.weights=glmnet::auc(y, y.hat, w),\n                      no.weights=glmnet::auc(y, y.hat),\n                      equal.weights=glmnet::auc(y, y.hat, rep(1, length(y)))),\n      `WeightedROC::WeightedAUC`=c(WeightedAUC(WeightedROC(y.hat, y, w)),\n                                   WeightedAUC(WeightedROC(y.hat, y)),\n                                   WeightedAUC(WeightedROC(y.hat, y, rep(1, length(y))))))\n\ny <- c(-1, -1, 1, 1, 1, -1, 1)\nw <- c(1, 1, 1, 1, 1, 1, 1)\ny.hat <- c(0.01, 0.02, 0.6, 0.7, 0.1, 0.9, 0.8)\n\n\ny <- c(-1, -1, 1, 1, 1, -1)\ny <- c(0, 0, 1, 1, 1, 0)\nw <- c(1, 1, 1, 1, 1, 1)\ny.hat <- c(0.01, 0.02, 0.6, 0.7, 0.1, 0.9)\ntp.fp <- WeightedROC(y.hat, y, w)\nwauc <- WeightedAUC(tp.fp)\nwauc\n\npROC::auc(y ~ y.hat, data=data.frame(y,y.hat))\n\nglmnet::auc(y, y.hat, w)\n\nrprob = rank(y.hat)\nn1 = sum(y)\nn0 = length(y) - n1\nu = sum(rprob[y == 1]) - n1 * (n1 + 1)/2\nu/(n1 * n0)\n",
+    "created" : 1417367689214.000,
+    "dirty" : true,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "2026335215",
+    "id" : "A55B891B",
+    "lastKnownWriteTime" : 2462445498577351285,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled6"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
